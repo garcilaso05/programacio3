@@ -57,4 +57,7 @@ public abstract class Accions {
     public String toString() {
         return "Codigo: " + codigo + ", Titulo: " + titulo + ", Responsable: " + responsable;
     }
+
+    public abstract Accions copia();
+    
 }

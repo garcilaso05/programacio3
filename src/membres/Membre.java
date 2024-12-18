@@ -102,4 +102,6 @@ public abstract class Membre {
      */
     //Aquest mètode és abstracte i ha de ser implementat a les subclasses.
     public abstract String obtenirTipus();
+
+    public abstract Membre copia();
 }

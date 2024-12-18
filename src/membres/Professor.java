@@ -49,4 +49,23 @@ public class Professor extends Membre {
     public String obtenirTipus() {
         return "Professor";
     }
+
+
+
+    @Override
+    public String toString() {
+        return (super.toString() + ", Departamento: " + departament + ", Despatx: " + despatx);
+    }
+
+    @Override
+public Professor copia() {
+    return new Professor(
+        this.getAlias(), 
+        this.getEmailInstitucional(), 
+        new Data(this.getDataAlta().getDia(), this.getDataAlta().getMes(), this.getDataAlta().getAny()),
+        this.departament, 
+        this.despatx
+    );
+}
+
 }

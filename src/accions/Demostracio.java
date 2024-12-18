@@ -34,4 +34,18 @@ public class Demostracio extends Accions {
         return super.toString() + ", Fecha Diseño: " + dataDisseny + ", Activa: " + activa + ", Veces Ofrecida: "
                 + vegades + ", Costo Materiales: " + costMaterials;
     }
+
+    @Override
+public Demostracio copia() {
+    return new Demostracio(
+        null, // Se debe asignar un objeto Associacio adecuado si está disponible
+        this.getTitulo(), 
+        this.getResponsable(), 
+        new Data(this.dataDisseny.getDia(), this.dataDisseny.getMes(), this.dataDisseny.getAny()), 
+        this.activa, 
+        this.vegades, 
+        this.costMaterials
+    );
+}
+
 }

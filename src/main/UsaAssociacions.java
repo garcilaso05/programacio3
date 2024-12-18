@@ -1,10 +1,19 @@
 package main;
 
-import associacions.Associacio;
+import associacions.*;
 import membres.Alumne;
 import membres.Professor;
 import membres.Membre;
 import membres.Data;
+import membres.LlistaMembres;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import accions.*;
 
 /**
@@ -86,6 +95,76 @@ public class UsaAssociacions {
         xerrada1.agregarValoracion(10);
         System.out.println("Valoración media después de 3 valoraciones: " + xerrada1.calcularValoracionMedia());
         System.out.println("Ponentes: " + xerrada1.obtenerPonente());
+
+        //TESTS 5
+
+        LlistaMembres membres = new LlistaMembres(5);
+        membres.afegir(responsable1);
+        membres.afegir(responsable2);
+        membres.afegir(ponente1);
+        membres.afegir(ponente2);
+        membres.afegir(ponente3);
+
+        //TESTS 6
+
+        String archivoAssociacions = "LlistaAssociacions.dat";          // Serializado
+        String archivoAccions = "LlistaAccions.txt";                            // Texto
+        String archivoMembres = "LlistaMembres.txt";                    // Texto
+
+        LlistaAssociacions llistaAssociacions = null;
+        LlistaAccions llistaAccions = new LlistaAccions(100);   // Capacidad inicial
+        LlistaMembres llistaMembres = new LlistaMembres(100);   // Capacidad inicial
+
+
+
+        // Cargar LlistaAssociacions (datos serializados)
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivoAssociacions))) {
+            llistaAssociacions = (LlistaAssociacions) ois.readObject();
+            System.out.println("LlistaAssociacions cargada correctamente.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Archivo de LlistaAssociacions no encontrado. Se creará uno nuevo.");
+            llistaAssociacions = new LlistaAssociacions(150); // Nueva lista vacía
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar LlistaAssociacions: " + e.getMessage());
+            llistaAssociacions = new LlistaAssociacions(150); // Nueva lista vacía
+        }
+
+        // Cargar LlistaAccions (archivo de texto)
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivoAccions))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(";");
+                // Ejemplo de creación: tipo de acción diferenciado en partes[0]
+                if (partes[0].equals("Demostracio")) {
+                    llistaAccions.afegir(new Demostracio(null, partes[1], null, new Data(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), Integer.parseInt(partes[4])), Boolean.parseBoolean(partes[5]), Integer.parseInt(partes[6]), Double.parseDouble(partes[7])));
+                } else if (partes[0].equals("Xerrada")) {
+                    llistaAccions.afegir(new Xerrada(null, partes[1], null, new Data(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), Integer.parseInt(partes[4])), null, Integer.parseInt(partes[5])));
+                }
+            }
+            System.out.println("LlistaAccions cargada correctamente.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Archivo de LlistaAccions no encontrado. Se creará uno nuevo.");
+        } catch (IOException e) {
+            System.out.println("Error al cargar LlistaAccions: " + e.getMessage());
+        }
+
+        // Cargar LlistaMembres (archivo de texto)
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivoMembres))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(";");
+                if (partes[0].equals("Professor")) {
+                    llistaMembres.afegir(new Professor(
+                            partes[1], partes[2], new Data(Integer.parseInt(partes[3]), Integer.parseInt(partes[4]), Integer.parseInt(partes[5])), partes[6], Integer.parseInt(partes[7])));
+                } else if (partes[0].equals("Alumne")) {
+                    llistaMembres.afegir(new Alumne( partes[1], partes[2], new Data(Integer.parseInt(partes[3]), Integer.parseInt(partes[4]), Integer.parseInt(partes[5])), partes[6], Integer.parseInt(partes[7]))); } } System.out.println("LlistaMembres cargada correctamente."); } catch (FileNotFoundException e) { System.out.println("Archivo de LlistaMembres no encontrado. Se creará uno nuevo."); } catch (IOException e) { System.out.println("Error al cargar LlistaMembres: " + e.getMessage()); }
+
+        System.out.println("Cargando datos...");
+
+        
 
         System.out.println("\n=== FI DELS TESTS ===");
     }

@@ -72,4 +72,24 @@ public class Xerrada extends Accions {
         return super.toString() + ", Fecha: " + fecha + ", ponente: " + obtenerPonente() +
                 ", Asistentes: " + asistentes + ", Valoración Media: " + calcularValoracionMedia();
     }
+
+    @Override
+public Xerrada copia() {
+    Membre[] copiaPonentes = new Membre[this.ponente.length];
+    for (int i = 0; i < this.ponente.length; i++) {
+        if (this.ponente[i] != null) {
+            copiaPonentes[i] = this.ponente[i].copia(); // Llama a copia en los ponentes
+        }
+    }
+
+    return new Xerrada(
+        null, // Se debe asignar un objeto Associacio adecuado si está disponible
+        this.getTitulo(),
+        this.getResponsable(),
+        new Data(this.fecha.getDia(), this.fecha.getMes(), this.fecha.getAny()),
+        copiaPonentes,
+        this.asistentes
+    );
+}
+
 }

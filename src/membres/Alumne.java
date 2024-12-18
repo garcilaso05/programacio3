@@ -90,6 +90,25 @@ public class Alumne extends Membre {
     public String obtenirTipus() {
         return "Alumne";
     }
+
+
+    @Override
+    public String toString() {
+        return (super.toString() + ", Ensenyament: " + ensenyament + ", Anys a l'ETSE: " + anysETSE);
+    }
+
+    @Override
+public Alumne copia() {
+    return new Alumne(
+        this.getAlias(), 
+        this.getEmailInstitucional(),
+        new Data(this.getDataAlta().getDia(), this.getDataAlta().getMes(), this.getDataAlta().getAny()),
+        this.ensenyament, 
+        this.anysETSE
+    );
+}
+
+
 }
 
 
