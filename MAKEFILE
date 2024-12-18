@@ -1,0 +1,45 @@
+# Configuración de variables
+SRC_DIR = src
+BIN_DIR = bin
+MAIN_CLASS = main.UsaAssociacions
+TEST_CLASS = test.UsaAssociacionsTest
+JAVAC = javac
+JAVA = java
+RM = rm -rf
+
+# Encuentra todos los archivos .java en src/
+SOURCES = $(shell find $(SRC_DIR) -name "*.java")
+CLASSES = $(SOURCES:$(SRC_DIR)/%.java=$(BIN_DIR)/%.class)
+
+# Objetivo por defecto
+all: build
+
+# Compilación del código fuente
+build: $(CLASSES)
+
+$(BIN_DIR)/%.class: $(SRC_DIR)/%.java
+	@mkdir -p $(dir $@)
+	$(JAVAC) -d $(BIN_DIR) -sourcepath $(SRC_DIR) $<
+
+# Ejecución del programa principal
+run: build
+	$(JAVA) -cp $(BIN_DIR) $(MAIN_CLASS)
+
+# Ejecución del programa de test
+test: build
+	$(JAVA) -cp $(BIN_DIR) $(TEST_CLASS)
+
+# Limpieza de archivos compilados
+clean:
+	$(RM) $(BIN_DIR)
+
+# Ayuda
+help:
+	@echo "Usa los siguientes comandos:"
+	@echo "  make build      Compila todo el código fuente."
+	@echo "  make run        Ejecuta el programa principal."
+	@echo "  make test       Ejecuta el programa de test."
+	@echo "  make clean      Limpia todos los archivos compilados."
+	@echo "  make help       Muestra este mensaje de ayuda."
+
+.PHONY: all build run test clean help
