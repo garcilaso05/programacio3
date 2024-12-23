@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class LlistaAssociacions implements Serializable {
     private Associacio[] llista; // Array que almacena las instancias
     private int capacitat;       // Capacidad máxima del array
-    private int nombreActual;    // Número actual de elementos en la lista
+    private static int nombreActual;    // Número actual de elementos en la lista
 
     // Constructor
     public LlistaAssociacions(int capacitat) {
@@ -15,6 +15,10 @@ public class LlistaAssociacions implements Serializable {
         this.capacitat = capacitat;
         this.llista = new Associacio[capacitat];
         this.nombreActual = 0;
+    }
+
+    public static int getElementos(){
+        return nombreActual;
     }
 
     // Método para añadir una nueva associació
@@ -70,10 +74,19 @@ public class LlistaAssociacions implements Serializable {
         return copia;
     }
 
-    // Método para obtener el número actual de associacions
-    public int getNombreActual() {
-        return nombreActual;
+
+    public int buscarNumeroAssociacio(String nom) {
+        for  (int i = 0; i < nombreActual; i++) {
+            if (((llista[i]).getNom()).equalsIgnoreCase(nom)) {
+                return i;
+            }
+        }
+        return -1; // Devuelve -1 si no encuentra la asociación
     }
+
+
+
+
 
     // Método toString para mostrar todas las associacions
     @Override

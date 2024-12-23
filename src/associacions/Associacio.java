@@ -2,6 +2,7 @@ package associacions;
 
 import membres.Membre;
 import membres.Alumne;
+import membres.LlistaMembres;
 import membres.Professor;
 
 /**
@@ -17,7 +18,7 @@ public class Associacio {
     private String[] titulacions; // Taula de titulacions (sigles)
     private int numTitulacions; // Nombre actual de titulacions
 
-    private Membre[] membres; // Taula de membres de l'associació
+    private LlistaMembres membres; // Taula de membres de l'associació
     private int numMembres; // Nombre actual de membres en l'associació
 
     private Membre president; // President de l'associació (ha de ser alumne)
@@ -41,7 +42,7 @@ public class Associacio {
         this.titulacions = new String[MAX_TITULACIONS];
         this.numTitulacions = 0;
 
-        this.membres = new Membre[MAX_MEMBRES];
+        this.membres = new LlistaMembres(MAX_MEMBRES);
         this.numMembres = 0;
 
         this.president = null;
@@ -76,13 +77,13 @@ public class Associacio {
      */
     public boolean afegirMembre(Membre membre) {
         for (int i = 0; i < numMembres; i++) {
-            if (membres[i].equals(membre)) {
+            if ((membre.getAlias()).equals(membre)) {
                 return false;
             }
         }
 
         if (numMembres < MAX_MEMBRES) {
-            membres[numMembres] = membre;
+            membres.afegir(membre);
             numMembres++;
             if (membre instanceof Alumne)
                 afegirTitulacio(((Alumne) membre).getEnsenyament());
@@ -90,6 +91,10 @@ public class Associacio {
         } else {
             return false;
         }
+    }
+
+    public LlistaMembres getLlistaMembre() {
+        return membres;
     }
 
     /**
