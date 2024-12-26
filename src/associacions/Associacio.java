@@ -77,7 +77,7 @@ public class Associacio {
      */
     public boolean afegirMembre(Membre membre) {
         for (int i = 0; i < numMembres; i++) {
-            if ((membre.getAlias()).equals(membre)) {
+            if ((membres.consultar(i).getAlias()).equals(membre.getAlias())) {
                 return false;
             }
         }

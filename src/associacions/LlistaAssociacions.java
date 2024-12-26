@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class LlistaAssociacions implements Serializable {
     private Associacio[] llista; // Array que almacena las instancias
     private int capacitat;       // Capacidad máxima del array
-    private static int nombreActual;    // Número actual de elementos en la lista
+    private int nombreActual;    // Número actual de elementos en la lista
 
     // Constructor
     public LlistaAssociacions(int capacitat) {
@@ -17,7 +17,7 @@ public class LlistaAssociacions implements Serializable {
         this.nombreActual = 0;
     }
 
-    public static int getElementos(){
+    public int getElementos(){
         return nombreActual;
     }
 
@@ -27,7 +27,7 @@ public class LlistaAssociacions implements Serializable {
             throw new IllegalArgumentException("La associació no puede ser null.");
         }
         if (nombreActual >= capacitat) {
-            throw new IllegalStateException("La lista está llena. No se pueden añadir más elementos.");
+            throw new IllegalStateException("La lista está llena.");
         }
         llista[nombreActual] = associacio;
         nombreActual++;
@@ -76,12 +76,12 @@ public class LlistaAssociacions implements Serializable {
 
 
     public int buscarNumeroAssociacio(String nom) {
-        for  (int i = 0; i < nombreActual; i++) {
-            if (((llista[i]).getNom()).equalsIgnoreCase(nom)) {
+        for (int i = 0; i < nombreActual; i++) {
+            if (llista[i].getNom().equals(nom)) {
                 return i;
             }
         }
-        return -1; // Devuelve -1 si no encuentra la asociación
+        return -1; // No encontrado
     }
 
 

@@ -3,7 +3,7 @@ package membres;
 public class LlistaMembres {
     private Membre[] llista;
     private int capacitat;
-    private static int count;
+    private int count;
 
     public LlistaMembres(int capacitat) {
         if (capacitat <= 0) {
@@ -12,12 +12,6 @@ public class LlistaMembres {
         this.capacitat = capacitat;
         this.llista = new Membre[capacitat];
         count = 0;
-    }
-
-    public static int getNumMembres() {
-
-        return count;
-
     }
 
     // Añadir una instancia a la lista
