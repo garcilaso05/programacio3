@@ -43,7 +43,7 @@ public class Demostracio extends Accions {
                 + vegades + ", Costo Materiales: " + costMaterials;
     }
 
-
+    @Override
     public String obtenirTipus(){
         return "Demostracio";
     }

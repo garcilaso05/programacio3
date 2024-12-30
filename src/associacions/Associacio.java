@@ -194,6 +194,10 @@ public class Associacio {
         return info;
     }
 
+    public int mida() {
+        return numMembres;
+    }
+
     @Override
     public String toString() {
         StringBuilder info = new StringBuilder();

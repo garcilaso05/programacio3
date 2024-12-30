@@ -46,19 +46,19 @@ public class UsaAssociacions {
             System.out.println("1. Mostrar dades de la llista d’associacions");
             System.out.println("2. Mostrar dades de membres d’una associació");
             System.out.println("3. Mostra membres Actius");
-
+            System.out.println("4. Mostra llista d'accions filtrant per tipus d'acció");
             System.out.println("5. Mostrar Accions de UNA Associacio");
-
+            System.out.println("6. Llista de xerrades en una franja de dates");
             System.out.println("7. Afegir nova Associacio");
-
+            System.out.println("8. Nou membre a una associació");
             System.out.println("9. Afegir nova Xerrada");
-
+            System.out.println("10. Nova demostració");
             System.out.println("11. Mostrar demostracions no actius i cost total");
-
+            System.out.println("12. Persona mes activa");
             System.out.println("13. Mostrar Amb mes Assistents indicat");
-
+            System.out.println("14. Valorar xerrada");
             System.out.println("15. Mostrar Xerrada millor valoradas");
-
+            System.out.println("16. Dades de les xarrades fetes de un ponent");
             System.out.println("17. Donar de baixa les demostracions no actives dissenyades abans d’una certa data");
             System.out.println("18. Sortir");
             System.out.print("Escull una opció: ");
@@ -71,7 +71,6 @@ public class UsaAssociacions {
                     break;
             
                 case 2:
-                // No funciona bien del todo aun, revisar
                     menu.mostrarMembresPerTipus(llistaAssociacions, op);
                     break;
             
@@ -80,15 +79,15 @@ public class UsaAssociacions {
                     break;
             
                 case 4:
-                    // Acción para el caso 4
-                    break;
+                    menu.mostraLlistaAccions(llistaAccions, op);
+                                        break;
 
                 case 5:
                     menu.mostrarAccionsAssociacio(llistaAssociacions, llistaAccions, op);
                     break;
             
                 case 6:
-                    // Acción para el caso 6
+                    menu.llistaXerrades(llistaAccions, op);
                     break;
             
                 case 7:
@@ -96,7 +95,7 @@ public class UsaAssociacions {
                     break;
             
                 case 8:
-                    // Acción para el caso 8
+                    menu.afegirNouMembre(llistaMembres, llistaAssociacions, llistaAccions, op);
                     break;
             
                 case 9:
@@ -104,7 +103,7 @@ public class UsaAssociacions {
                     break;
             
                 case 10:
-                    // Acción para el caso 10
+                    menu.novaDemostracio(llistaMembres, llistaAssociacions, llistaAccions, op);
                     break;
             
                 case 11:
@@ -112,7 +111,7 @@ public class UsaAssociacions {
                     break;
             
                 case 12:
-                    // Acción para el caso 12
+                    menu.personaMesActiva(llistaMembres, llistaAssociacions, op);
                     break;
             
                 case 13:
@@ -120,7 +119,7 @@ public class UsaAssociacions {
                     break;
             
                 case 14:
-                    // Acción para el caso 14
+                    menu.valorarXerrada(llistaAccions, op);
                     break;
             
                 case 15:
@@ -128,7 +127,7 @@ public class UsaAssociacions {
                     break;
 
                 case 16:
-                    // Acción para el caso 16
+                    menu.xerradesPonent(llistaMembres, llistaAccions, op);
                     break;
             
                 case 17:
@@ -136,12 +135,12 @@ public class UsaAssociacions {
                     break;
         
                 case 18:
-                    // Acción para el caso 18
                     exit = true;
                     break;
             
                 default:
-                    // Acción por defecto
+                    exit = true;
+                    break;
             }
             
     }while (exit != true);

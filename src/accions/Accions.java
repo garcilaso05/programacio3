@@ -65,7 +65,7 @@ public abstract class Accions {
 
     @Override
     public String toString() {
-        return "Codigo: " + codigo + ", Titulo: " + titulo + ", Responsable: " + responsable;
+        return "Codigo: " + codigo + ", Titulo: " + titulo + ", Responsable: " + responsable.getAlias();
     }
 
     //abstract
