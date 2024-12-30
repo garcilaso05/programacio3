@@ -20,8 +20,16 @@ public class Demostracio extends Accions {
         this.costMaterials = costMaterials;
     }
 
+    public Data getDataDisseny(){
+        return dataDisseny;
+    }
+    
     public boolean isActiva() {
         return activa;
+    }
+
+    public int getVegades(){
+        return vegades;
     }
 
     public double getcostMaterials() {
@@ -36,6 +44,11 @@ public class Demostracio extends Accions {
     }
 
     @Override
+    public String obtenirTipus(){
+        return "Demostracio";
+    }
+
+    @Override
 public Demostracio copia() {
     return new Demostracio(
         null, // Se debe asignar un objeto Associacio adecuado si está disponible
@@ -46,11 +59,6 @@ public Demostracio copia() {
         this.vegades, 
         this.costMaterials
     );
-}
-
-@Override
-public String obtenirTipus() {
-    return "Demostracio";
 }
 
 }

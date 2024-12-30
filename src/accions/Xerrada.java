@@ -34,6 +34,12 @@ public class Xerrada extends Accions {
     public int getAsistentes() {
         return asistentes;
     }
+    public int[] getValoraciones(){
+        return valoraciones;
+    }
+    public int getNumValoraciones(){
+        return numValoraciones;
+    }
 
     public void agregarValoracion(int valoracion) {
         if (valoracion < 0 || valoracion > 10) {
@@ -77,6 +83,12 @@ public class Xerrada extends Accions {
         return super.toString() + ", Fecha: " + fecha + ", ponente: " + obtenerPonente() +
                 ", Asistentes: " + asistentes + ", Valoración Media: " + calcularValoracionMedia();
     }
+    //abstract
+    @Override
+    public String obtenirTipus(){
+        return "Xerrada";
+    }
+
 
     @Override
 public Xerrada copia() {
@@ -95,11 +107,6 @@ public Xerrada copia() {
         copiaPonentes,
         this.asistentes
     );
-}
-
-@Override
-public String obtenirTipus() {
-    return "Xerrada";
 }
 
 }

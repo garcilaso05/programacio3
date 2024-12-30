@@ -1,0 +1,30 @@
+Alumne;Joan Pérez;joanperez@urv.cat;15/06/2020;12/11/2021;Pataquers,null,null;GEI;2;false
+Alumne;Maria García;mariagarcia@urv.cat;07/03/2018;Actiu;Pataquers,null,null;GEB;1;false
+Alumne;Carles Martínez;carlesmartinez@urv.cat;21/09/2021;12/11/2021;Pataquers,null,null;GESST;3;false
+Alumne;Laura Rodríguez;laurarodriguez@urv.cat;12/04/2019;Actiu;Pataquers,null,null;externETSE;4;false
+Alumne;Anna López;annalopez@urv.cat;30/11/2017;Actiu;Pataquers,null,null;BioGEI;2;false
+Alumne;Pere Vila;perevila@urv.cat;11/01/2020;Actiu;Pataquers,null,null;BioGEI;1;false
+Alumne;Marta Soler;martasoler@urv.cat;22/05/2018;Actiu;Pataquers,Quers,null;DG GEB-GESST;2;false
+Alumne;Jordi Font;jordifont@urv.cat;13/07/2021;Actiu;Pataquers,Quers,null;GEI;3;false
+Alumne;Núria Roca;nuriaroca@urv.cat;18/02/2019;Actiu;Pataquers,null,null;DG GEB-GESST;1;false
+Alumne;Albert Ferrer;albertferrer@urv.cat;05/12/2017;Actiu;Pataquers,null,null;BioGEI;4;false
+Alumne;Sergi Torres;sergitorres@urv.cat;22/03/2021;Actiu;Pataquers,null,null;GEB;2;false
+Alumne;Clara Ferran;claraferran@urv.cat;14/09/2019;Actiu;Pataquers,null,null;DG GEB-GESST;3;false
+Alumne;Paula Vidal;paulavidal@urv.cat;08/06/2018;Actiu;Pataquers,null,null;externETSE;1;false
+Alumne;Oriol Riera;oriolriera@urv.cat;03/02/2020;Actiu;Pataquers,null,null;GEB;4;false
+Alumne;Helena Martí;helenamarti@urv.cat;10/10/2017;Actiu;Pataquers,null,null;GEB;2;false
+Alumne;Marc Serra;marcserra@urv.cat;27/08/2019;Actiu;Pataquers,null,null;GEI;3;false
+Alumne;Gemma Salas;gemmasalas@urv.cat;16/05/2021;Actiu;Pataquers,Quers,null;DG GEB-GESST;1;false
+Alumne;Ramon Bosch;ramonbosch@urv.cat;29/07/2020;Actiu;Pataquers,null,null;BioGEI;2;false
+Alumne;Carla Prats;carlaprats@urv.cat;21/04/2018;Actiu;Pataquers,null,null;BioGEI;1;false
+Alumne;Arnau Mora;arnaumora@urv.cat;11/11/2019;11/10/2020;Pataquers,null,null;GEI;3;false
+Professor;Lluís Fernández;lluisfernandez@urv.cat;18/02/2016;Actiu;Pataquers,null,null;DEIM;201
+Professor;Marta Sánchez;martasanchez@urv.cat;09/10/2015;Actiu;Pataquers,null,null;DEEEA;202
+Professor;Josep Ramírez;josepramirez@urv.cat;05/12/2019;Actiu;Pataquers,null,null;DEIM;203
+Professor;Elena Ruiz;elenaruiz@urv.cat;14/07/2018;Actiu;Pataquers,null,null;DEEEA;204
+Professor;Ferran Gómez;ferrangomez@urv.cat;25/05/2017;Actiu;Pataquers,null,null;DEIM;205
+Professor;Jordi Serrano;jordiserrano@urv.cat;10/06/2020;Actiu;Pataquers,null,null;DEIM;206
+Professor;Laura Pons;laurapons@urv.cat;22/03/2019;Actiu;Pataquers,null,null;DEEEA;207
+Professor;Antoni Vidal;antonividal@urv.cat;30/08/2021;Actiu;Pataquers,null,null;DEIM;208
+Professor;Cristina Pérez;cristinaperez@urv.cat;17/01/2018;Actiu;Pataquers,Quers,null;DEEEA;209
+Professor;Pau Ferran;pauferran@urv.cat;20/04/2017;Actiu;Pataquers,null,null;DEIM;210

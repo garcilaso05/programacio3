@@ -3,7 +3,6 @@ package associacions;
 import membres.Membre;
 import membres.Alumne;
 import membres.LlistaMembres;
-import membres.Professor;
 
 /**
  * Classe que representa una Associació.
@@ -54,9 +53,6 @@ public class Associacio {
         return nom;
     }
 
-    public int mida() {
-        return numMembres;
-    }
     public String getCorreuElectronic() {
         return correuElectronic;
     }
@@ -71,6 +67,10 @@ public class Associacio {
 
     public Membre getTresorer() {
         return tresorer;
+    }
+
+    public int getNumMembers(){
+        return numMembres;
     }
 
     /**
@@ -100,12 +100,20 @@ public class Associacio {
         return membres;
     }
 
+    public int getNumTitulacions(){
+        return numTitulacions;
+    }
+
+    public String[] getTitulacions(){
+        return titulacions;
+    }
+    
     /**
      * Afegeix una titulació a la llista, si no existeix prèviament.
      * 
      * @param titulacio Sigles de la titulació.
      */
-    private void afegirTitulacio(String titulacio) {
+    public void afegirTitulacio(String titulacio) {
         // Verifiquem que no es trobi duplicada
         for (int i = 0; i < numTitulacions; i++) {
             if (titulacions[i].equals(titulacio)) {
@@ -185,4 +193,30 @@ public class Associacio {
                 + secretari.getAlias() + "\nTresorer/a: " + tresorer.getAlias();
         return info;
     }
+
+    public int mida() {
+        return numMembres;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder info = new StringBuilder();
+        info.append("Nom de l'associació: ").append(nom)
+            .append("\nCorreu de contacte: ").append(correuElectronic)
+            .append("\nTitulacions: ");
+        
+        for (int i = 0; i < numTitulacions; i++) {
+            info.append("\n\t- ").append(titulacions[i]);
+        }
+        
+        info.append("\nNombre de membres: ").append(numMembres)
+            .append("\nPresident/a: ").append(president != null ? president.getAlias() : "No assignat")
+            .append("\nSecretari/a: ").append(secretari != null ? secretari.getAlias() : "No assignat")
+            .append("\nTresorer/a: ").append(tresorer != null ? tresorer.getAlias() : "No assignat");
+        
+        return info.toString();
+    }
+
+
+
 }

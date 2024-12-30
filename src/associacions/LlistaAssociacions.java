@@ -16,7 +16,7 @@ public class LlistaAssociacions implements Serializable {
         this.llista = new Associacio[capacitat];
         this.nombreActual = 0;
     }
-
+    
     public int getElementos(){
         return nombreActual;
     }
@@ -83,10 +83,6 @@ public class LlistaAssociacions implements Serializable {
         }
         return -1; // No encontrado
     }
-
-
-
-
 
     // Método toString para mostrar todas las associacions
     @Override

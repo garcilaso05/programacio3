@@ -1,0 +1,11 @@
+Xerrada;PAT100;Festa de l'esport;Quers;Marta Soler;17/01/2018;Marta Soler, Jordi Font, Núria Roca;210;6,7,8
+Xerrada;PAT101;Historia dels castells;Pataquers;Albert Ferrer;05/05/2023;Albert Ferrer, Sergi Torres;150;5,3
+Xerrada;PAT102;Busquem nous integrants;Quers;Carles Martínez;12/03/2022;Carles Martínez, Laura Rodríguez, Anna López;300;2,3,4,5
+Xerrada;PAT103;Seguretat als castells;Quers;Jordi Font;20/11/2021;Jordi Font, Marc Serra, Gemma Salas;180;4,5,6
+Xerrada;PAT104;La física dels castells;Pataquers;Ramon Bosch;09/08/2020;Ramon Bosch;120;7
+Demostracio;PAT105;Com es fan castells?;Pataquers;Joan Pérez;20/11/2021;false;5;1500.3
+Demostracio;PAT106;Prova a fer-ne;Pataquers;Joan Pérez;15/06/2022;true;10;3000.5
+Demostracio;PAT107;Juga a fer castells;Pataquers;Joan Pérez;07/03/2023;true;7;1250.75
+Demostracio;PAT108;Fisiques;Pataquers;Joan Pérez;21/09/2024;false;3;500.25
+Demostracio;PAT109;Cultura!;Quers;Gemma Salas;12/04/2025;true;8;2000.0
+Xerrada;QUE110;Com coordinar castells?;Quers;Sergi Torres;12/01/2022;Paula Vidal;40;5
