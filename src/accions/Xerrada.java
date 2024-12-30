@@ -3,11 +3,12 @@ package accions;
 import associacions.Associacio;
 import membres.Membre;
 import membres.Data;
+import membres.LlistaMembres;
 
 public class Xerrada extends Accions {
 
     private Data fecha;
-    private Membre[] ponente;
+    private LlistaMembres ponente;
     private int asistentes;
     private int[] valoraciones;
     private int numValoraciones;
@@ -16,10 +17,10 @@ public class Xerrada extends Accions {
             int asistentes) {
         super(nombreAsociacion, titulo, responsable);
         this.fecha = fecha;
-        this.ponente = new Membre[3];
+        this.ponente = new LlistaMembres(3);
 
         for (int i = 0; i < ponente.length && i < 3; i++) {
-            this.ponente[i] = ponente[i];
+            this.ponente.afegir(ponente[i]);
         }
         this.asistentes = asistentes;
         this.valoraciones = new int[100];
@@ -59,12 +60,16 @@ public class Xerrada extends Accions {
 
     public String obtenerPonente() {
         String resultado = "";
-        for (int i = 0; i < ponente.length; i++) {
-            if (ponente[i] != null) {
-                resultado += ponente[i].getAlias() + (i < ponente.length - 1 && ponente[i + 1] != null ? ", " : "");
+        for (int i = 0; i < ponente.mida(); i++) {
+            if (ponente.consultar(i) != null) {
+                resultado += ponente.consultar(i).getAlias() + (i < ponente.mida() - 1 && ponente.consultar(i+1) != null ? ", " : "");
             }
         }
         return resultado.isEmpty() ? "Ninguno" : resultado;
+    }
+
+    public LlistaMembres obtenerListaPonentes() {
+        return ponente;
     }
 
     @Override
@@ -75,10 +80,10 @@ public class Xerrada extends Accions {
 
     @Override
 public Xerrada copia() {
-    Membre[] copiaPonentes = new Membre[this.ponente.length];
-    for (int i = 0; i < this.ponente.length; i++) {
-        if (this.ponente[i] != null) {
-            copiaPonentes[i] = this.ponente[i].copia(); // Llama a copia en los ponentes
+    Membre[] copiaPonentes = new Membre[this.ponente.mida()];
+    for (int i = 0; i < this.ponente.mida(); i++) {
+        if (this.ponente.consultar(i) != null) {
+            copiaPonentes[i] = this.ponente.consultar(i).copia(); // Llama a copia en los ponentes
         }
     }
 
@@ -90,6 +95,11 @@ public Xerrada copia() {
         copiaPonentes,
         this.asistentes
     );
+}
+
+@Override
+public String obtenirTipus() {
+    return "Xerrada";
 }
 
 }

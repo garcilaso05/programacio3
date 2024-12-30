@@ -48,4 +48,9 @@ public Demostracio copia() {
     );
 }
 
+@Override
+public String obtenirTipus() {
+    return "Demostracio";
+}
+
 }

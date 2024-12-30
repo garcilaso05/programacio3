@@ -104,21 +104,14 @@ public class UsaAssociacions {
         llistaMembres.afegir(cristinaPerez);
         llistaMembres.afegir(pauFerran);
 
-
-
-
-
-
-
-
-
-
         Associacio pataquers = new Associacio("Pataquers", "pataquers@urv.cat");
         llistaAssociacions.afegir(pataquers);
         for (int i = 0; i < llistaMembres.mida(); i++) {
         llistaAssociacions.consultar(0).afegirMembre(llistaMembres.consultar(i));
         }
 
+        Alumne roger = new Alumne("Roger", "rogergarciado@urv.cat", new Data(21, 9, 2022), "GEI", 2);
+        llistaMembres.afegir(roger);
 
         // Instancia 1
         Membre[] ponents1 = new Membre[3];
@@ -129,10 +122,10 @@ public class UsaAssociacions {
         
         // Instancia 2
         Membre[] ponents2 = new Membre[2];
-        ponents2[0] = martaSanchez;
+        ponents2[0] = lauraPons;
         ponents2[1] = josepRamirez;
         llistaAccions.afegir(new Xerrada(pataquers, "Historia dels castells", llistaMembres.consultar(10), new Data(5, 5, 2023), ponents2, 150));
-        
+
         // Instancia 3
         Membre[] ponents3 = new Membre[4];
         ponents3[0] = claraFerran;
@@ -177,6 +170,7 @@ public class UsaAssociacions {
         boolean exit = false;
         Scanner op = new Scanner(System.in);
         String texto = " ";
+        int numero;
 
         do {
 
@@ -188,11 +182,11 @@ public class UsaAssociacions {
                     break;
             
                 case 2:
-                // No funciona bien del todo aun, revisar
+                
                 
                 System.out.println("Indica la Associació que vols consultar: ");
                 texto = op.nextLine().trim(); // Normaliza el texto ingresado
-                int numero = llistaAssociacions.buscarNumeroAssociacio(texto);
+                numero = llistaAssociacions.buscarNumeroAssociacio(texto);
                 
                 if (numero == -1) {
                     System.out.println("Associació no trobada. Revisa el nom introduït.");
@@ -236,7 +230,32 @@ public class UsaAssociacions {
             
                 case 4:
                    
-
+                    System.out.println("1. Xerrada 2. Demostracio 3. Ambdós");
+                    opcion = Integer.parseInt(op.nextLine());
+                
+                    switch (opcion) {
+                        case 1:
+                            for (int i = 0; i < llistaAccions.mida(); i++) {
+                                if (llistaAccions.consultar(i).obtenirTipus().equals("Xerrada")) System.out.println("\n\t"+llistaAccions.consultar(i).toString());
+                            }
+                            break;
+                
+                        case 2:
+                        for (int i = 0; i < llistaAccions.mida(); i++) {
+                            if (llistaAccions.consultar(i).obtenirTipus().equals("Demostracio")) System.out.println("\n\t"+llistaAccions.consultar(i).toString());
+                        }
+                            break;
+                
+                        case 3:
+                        for (int i = 0; i < llistaAccions.mida(); i++) {
+                            System.out.println("\n\t"+llistaAccions.consultar(i).toString());
+                        }
+                            break;
+                
+                        default:
+                            System.out.println("Opció no vàlida.");
+                    
+                }
 
                     break;
             
@@ -245,7 +264,31 @@ public class UsaAssociacions {
                     break;
             
                 case 6:
-                    // Acción para el caso 6
+
+                    System.out.println("Introdueix els rangs de cerca...");
+                    int dia_i, mes_i, any_i, dia_f, mes_f, any_f;
+                    System.out.println("Introdueixi el dia d'inici: ");
+                    dia_i = Integer.parseInt(op.nextLine());
+                    System.out.println("\nIntrodueixi el mes d'inici: ");
+                    mes_i = Integer.parseInt(op.nextLine());
+                    System.out.println("\nIntrodueixi l'any d'inici: ");
+                    any_i = Integer.parseInt(op.nextLine());
+                    Data inici = new Data(dia_i, mes_i, any_i);
+
+                    System.out.println("Introdueixi el dia de final: ");
+                    dia_f = Integer.parseInt(op.nextLine());
+                    System.out.println("\nIntrodueixi el mes de final: ");
+                    mes_f = Integer.parseInt(op.nextLine());
+                    System.out.println("\nIntrodueixi l'any de final: ");
+                    any_f = Integer.parseInt(op.nextLine());
+                    Data fi = new Data(dia_f, mes_f, any_f);
+
+                    for (int i = 0; i < llistaAccions.mida(); i++) {
+                        if (llistaAccions.consultar(i).obtenirTipus().equals("Xerrada") && ((Xerrada)(llistaAccions.consultar(i))).getFecha().esAnterior(fi) && inici.esAnterior(((Xerrada)(llistaAccions.consultar(i))).getFecha())) {
+                            System.out.println("\n\t"+llistaAccions.consultar(i).toString());
+                        }
+                    }
+
                     break;
             
                 case 7:
@@ -253,7 +296,105 @@ public class UsaAssociacions {
                     break;
             
                 case 8:
-                    // Acción para el caso 8
+                    
+                System.out.println("Indica la Associació: ");
+                texto = op.nextLine().trim(); // Normaliza el texto ingresado
+                numero = llistaAssociacions.buscarNumeroAssociacio(texto);
+                
+                if (numero == -1) {
+                    System.out.println("Associació no trobada. Revisa el nom introduït.");
+                } else {
+                
+                    System.out.println("Introdueixi el nom del nou membre: ");
+                    texto = op.nextLine().trim();
+                    boolean trobat = false;
+                    int i = 0;
+                    while (i < llistaMembres.mida() && trobat == false) {
+                        if (llistaMembres.consultar(i).getAlias().equals(texto)) {
+                            trobat = true;
+                        }
+                        i++;
+                    }
+
+                    
+                    if (trobat){
+                        i--;
+                        int j = 0;
+                        trobat = false;
+                        while (j < llistaAssociacions.consultar(numero).mida() && trobat == false) {
+                            if (llistaMembres.consultar(i).equals(llistaAssociacions.consultar(numero).getLlistaMembre().consultar(j))) {
+                                trobat = true;
+                            }
+                            j++;
+                        }
+
+                            if (trobat) {
+                                System.out.println("El membre ja està associat a la associació.");
+                            }else {
+                                System.out.println("El membre no està associat a la associació així que ara s'afegira.");
+                                llistaAssociacions.consultar(numero).afegirMembre(llistaMembres.consultar(i));
+                            }
+
+
+                    }else{
+
+                        System.out.println("El membre no està associat a cap associació");
+                        System.out.println("Indica primer si es 1. Alumne o 2. Professor");
+                        opcion = Integer.parseInt(op.nextLine());
+                        if (opcion == 1){
+                            
+                            System.out.println("Alias: " + texto);
+                            System.out.println("\nEmail: ");
+                            String email = op.nextLine().trim();
+                            System.out.println("\nIntrodueix la data d'alta: ");
+                            int dia, mes, any;
+                            System.out.println("\nDia: ");
+                            dia = Integer.parseInt(op.nextLine());
+                            System.out.println("\nMes: ");
+                            mes = Integer.parseInt(op.nextLine());
+                            System.out.println("\nAny: ");
+                            any = Integer.parseInt(op.nextLine());
+                            Data alta = new Data(dia, mes, any);
+                            System.out.println("\nEnsenyament: ");
+                            String estudis = op.nextLine().trim();
+                            System.out.println("\nAnys a l'ETSE: ");
+                            int anys = Integer.parseInt(op.nextLine().trim());
+                            Alumne nouAlumne = new Alumne(texto, email, alta, estudis, anys);
+                            llistaMembres.afegir(nouAlumne);
+                            llistaAssociacions.consultar(numero).afegirMembre(nouAlumne);
+                                                    
+                        } else if (opcion == 2){
+
+                            System.out.println("Alias: " + texto);
+                            System.out.println("\nEmail: ");
+                            String email = op.nextLine().trim();
+                            System.out.println("\nIntrodueix la data d'alta: ");
+                            int dia, mes, any;
+                            System.out.println("\nDia: ");
+                            dia = Integer.parseInt(op.nextLine());
+                            System.out.println("\nMes: ");
+                            mes = Integer.parseInt(op.nextLine());
+                            System.out.println("\nAny: ");
+                            any = Integer.parseInt(op.nextLine());
+                            Data alta = new Data(dia, mes, any);
+                            System.out.println("\nDepartament: ");
+                            String departament = op.nextLine().trim();
+                            System.out.println("\nDespatx: ");
+                            int despatx = Integer.parseInt(op.nextLine().trim());
+                            Professor nouProfessor = new Professor(texto, email, alta, departament, despatx);
+                            llistaMembres.afegir(nouProfessor);
+                            llistaAssociacions.consultar(numero).afegirMembre(nouProfessor);
+
+                        }
+
+
+
+
+                    }
+
+                }
+
+
                     break;
             
                 case 9:
@@ -261,15 +402,184 @@ public class UsaAssociacions {
                     break;
             
                 case 10:
-                    // Acción para el caso 10
+
+                System.out.println("Indica la Associació organitzadora de la nova Demostració: ");
+                texto = op.nextLine().trim(); // Normaliza el texto ingresado
+                numero = llistaAssociacions.buscarNumeroAssociacio(texto);
+                
+                if (numero == -1) {
+                    System.out.println("Associació no trobada. Revisa el nom introduït.");
+                } else {
+
+                    System.out.println("\nTítol de la nova Demostració: ");
+                    String titol = op.nextLine().trim();
+                    System.out.println("\nNom del membre responsable: ");
+                    String nom = op.nextLine().trim();
+                    Membre nouMembre;
+
+                    boolean trobat = false;
+                    int i = 0;
+                    while (i < llistaMembres.mida() && trobat == false) {
+                        if (llistaMembres.consultar(i).getAlias().equals(nom)) {
+                            trobat = true;
+                        }
+                        i++;
+                    }
+
+                    if (trobat){
+                        i--;
+
+                    }else{
+
+                        System.out.println("El membre no existeix, crea un de nou: ");
+                        System.out.println("\nIndica primer si es 1. Alumne o 2. Professor");
+                        opcion = Integer.parseInt(op.nextLine());
+                        if (opcion == 1){
+                            
+                            System.out.println("Alias: " + nom);
+                            System.out.println("\nEmail: ");
+                            String email = op.nextLine().trim();
+                            System.out.println("\nIntrodueix la data d'alta: ");
+                            int dia, mes, any;
+                            System.out.println("\nDia: ");
+                            dia = Integer.parseInt(op.nextLine());
+                            System.out.println("\nMes: ");
+                            mes = Integer.parseInt(op.nextLine());
+                            System.out.println("\nAny: ");
+                            any = Integer.parseInt(op.nextLine());
+                            Data alta = new Data(dia, mes, any);
+                            System.out.println("\nEnsenyament: ");
+                            String estudis = op.nextLine().trim();
+                            System.out.println("\nAnys a l'ETSE: ");
+                            int anys = Integer.parseInt(op.nextLine().trim());
+                            Alumne nouAlumne = new Alumne(texto, email, alta, estudis, anys);
+                            llistaMembres.afegir(nouAlumne);
+                            i = llistaMembres.mida();
+                            i--;
+
+                            
+                        } else if (opcion == 2){
+
+                            System.out.println("Alias: " + texto);
+                            System.out.println("\nEmail: ");
+                            String email = op.nextLine().trim();
+                            System.out.println("\nIntrodueix la data d'alta: ");
+                            int dia, mes, any;
+                            System.out.println("\nDia: ");
+                            dia = Integer.parseInt(op.nextLine());
+                            System.out.println("\nMes: ");
+                            mes = Integer.parseInt(op.nextLine());
+                            System.out.println("\nAny: ");
+                            any = Integer.parseInt(op.nextLine());
+                            Data alta = new Data(dia, mes, any);
+                            System.out.println("\nDepartament: ");
+                            String departament = op.nextLine().trim();
+                            System.out.println("\nDespatx: ");
+                            int despatx = Integer.parseInt(op.nextLine().trim());
+                            Professor nouProfessor = new Professor(texto, email, alta, departament, despatx);
+                            llistaMembres.afegir(nouProfessor);
+                            i = llistaMembres.mida();
+                            i--;
+
+                        }
+
+
+
+
+                    }
+
+
+                    System.out.println("\nIntrodueix la data de disseny: ");
+                    int dia, mes, any;
+                    System.out.println("\nDia: ");
+                    dia = Integer.parseInt(op.nextLine());
+                    System.out.println("\nMes: ");
+                    mes = Integer.parseInt(op.nextLine());
+                    System.out.println("\nAny: ");
+                    any = Integer.parseInt(op.nextLine());
+                    Data dataDisseny = new Data(dia, mes, any);
+                    boolean actiu = false;
+                    System.out.println("\nLa demostració està activa? 1. (si) 2. (no)");
+                    if(Integer.parseInt(op.nextLine()) == 1){
+                        actiu = true;
+                    }
+                    System.out.println("\nVeguades que es farà: ");
+                    int vegades = Integer.parseInt(op.nextLine().trim());
+                    System.out.println("\nCost de tot el material: ");
+                    double costMaterials = Double.parseDouble(op.nextLine().trim());
+
+                    llistaAccions.afegir(new Demostracio(llistaAssociacions.consultar(numero), titol, llistaMembres.consultar(i--), dataDisseny, actiu, vegades, costMaterials));
+                    System.out.println("Nova Demostracio creada!");
+
+                }
+
                     break;
             
                 case 11:
+
                     // Acción para el caso 11
                     break;
             
                 case 12:
-                    // Acción para el caso 12
+                    
+                    Data llistaDates[] = new Data[llistaMembres.mida()];
+                    int actiu[] = new int[llistaMembres.mida()];
+
+                    for (int i = 0; i <actiu.length; i++){
+                        actiu[i] = 0;
+                        llistaDates[i] = new Data(31, 12, 9999);
+                    }
+
+                    for (int i = 0; i<(llistaAssociacions.getElementos()); i++) { 
+                        for (int j = 0; j < (llistaAssociacions.consultar(i).getLlistaMembre().mida()); j++) {
+                                for (int k = 0; k < llistaMembres.mida(); k++) {
+                                    if (llistaMembres.consultar(k).getAlias().equals(llistaAssociacions.consultar(i).getLlistaMembre().consultar(j).getAlias())) {
+                                        if (llistaAssociacions.consultar(i).getLlistaMembre().consultar(j).getDataAlta().esAnterior(llistaDates[k])){
+                                        llistaDates[k] = llistaAssociacions.consultar(i).getLlistaMembre().consultar(j).getDataAlta();
+                                        }
+                                        actiu[k] = actiu[k]++;
+                                    }
+                                }
+                        }
+                    }
+                    int max = actiu[0];
+                    for (int i = 0; i < actiu.length; i++) {
+
+                        if (actiu[i] > max) {
+                            max = actiu[i];
+                        }
+
+                    }
+
+                    int count = 0;
+                    int membreMesActiu = 0;
+
+                    for (int i = 0; i < actiu.length; i++) {
+
+                        if (actiu[i] == max) {
+                            count++;
+                            membreMesActiu = i;
+                        }
+
+                    }
+
+                    Data mesAntic = new Data(31, 12, 9999);
+                    
+
+                    if (count != 1) {
+                        for (int i = 0; i < actiu.length; i++) {
+                            if (actiu[i] == max && llistaDates[i].esAnterior(mesAntic)) {
+                                mesAntic = llistaDates[i];
+                                membreMesActiu = i;
+                            }
+                        }
+
+                    } 
+
+                    System.out.println("\nMembre amb més activitat: " + llistaMembres.consultar(membreMesActiu).getAlias());
+
+
+
                     break;
             
                 case 13:
@@ -277,7 +587,20 @@ public class UsaAssociacions {
                     break;
             
                 case 14:
-                    // Acción para el caso 14
+                    System.out.println("Indica el nom de la Xarrada que vols valorar: ");
+                    String nom = op.nextLine().trim();
+                    for (int i = 0; i< llistaAccions.mida(); i++){
+                        if (llistaAccions.consultar(i).obtenirTipus().equals("Xerrada")){
+                            if (llistaAccions.consultar(i).getTitulo().equals(nom)){
+                                System.out.println("Introdueix la valoració de la xarrada: ");
+                                int valoracio = Integer.parseInt(op.nextLine().trim());
+                                ((Xerrada)llistaAccions.consultar(i)).agregarValoracion(valoracio);
+                                System.out.println("Valoració afegida correctament!");
+                            }
+                        }
+                    }
+
+                    
                     break;
             
                 case 15:
@@ -285,7 +608,52 @@ public class UsaAssociacions {
                     break;
 
                 case 16:
-                    // Acción para el caso 16
+
+                System.out.println("Indica el nom del ponent que vols consultar: ");
+                String nombre = op.nextLine().trim();
+                boolean teXerrada = false;
+
+                boolean trobat = false;
+                int i = 0;
+                while (i < llistaMembres.mida() && trobat == false) {
+                    if (llistaMembres.consultar(i).getAlias().equals(nombre)) {
+                        trobat = true;
+                    }
+                    i++;
+                }
+
+                if (trobat){
+                    
+                    for (i = 0; i<(llistaAccions.mida()); i++) { 
+
+                        if (llistaAccions.consultar(i).obtenirTipus().equals("Xerrada")){
+
+                            for (int j = 0; j <  (((Xerrada)llistaAccions.consultar(i)).obtenerListaPonentes()).mida(); j++) { 
+    
+                                if((((Xerrada)llistaAccions.consultar(i)).obtenerListaPonentes()).consultar(j).getAlias().equals(nombre)){
+                            
+                                    System.out.println(llistaAccions.consultar(i).toString()+"\n");
+                                    teXerrada = true;
+        
+                                }
+                            
+                            }
+
+                        }
+
+
+                    }
+                    if (!teXerrada){
+                        System.out.println("El membre indicat no ha fet cap xarrada");
+                    }
+
+                }else{
+
+                    System.out.println("El membre no existeix");
+
+                }
+
+                
                     break;
             
                 case 17:
@@ -293,11 +661,12 @@ public class UsaAssociacions {
                     break;
             
                 case 18:
-                    // Acción para el caso 18
+                    exit = true;
                     break;
             
                 default:
-                    // Acción por defecto
+                    exit = true;
+                    break;
             }
             
     }while (exit != true);

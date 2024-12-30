@@ -54,6 +54,9 @@ public class Associacio {
         return nom;
     }
 
+    public int mida() {
+        return numMembres;
+    }
     public String getCorreuElectronic() {
         return correuElectronic;
     }
