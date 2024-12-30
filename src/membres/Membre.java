@@ -64,6 +64,14 @@ public abstract class Membre {
         return dataBaixa;
     }
 
+    public String[] getAssociacions(){
+        return associacions;
+    }
+
+    public int getNumAssociacions(){
+        return nombreAssociacions;
+    }
+
     /**
      * @brief Dona de baixa el membre.
      * @param dataBaixa la data en què es vol donar de baixa.
@@ -84,17 +92,27 @@ public abstract class Membre {
     }
 
     /**
-     * @brief Afegeix una associació al membre.
+     * @brief Afegeix una associació al membre si no existeix prèviament.
      * @param nomAssociacio el nom de l'associació a afegir.
-     * @return true si s'ha afegit correctament, false si el membre ja està associat a tres associacions.
+     * @return true si s'ha afegit correctament, false si el membre ja està associat a tres associacions
+     *         o si l'associació ja existeix.
      */
     public boolean afegirAssociacio(String nomAssociacio) {
-        if (nombreAssociacions >= 3) {
-            return false;
+        // Comprova si l'associació ja existeix a la llista
+        for (int i = 0; i < nombreAssociacions; i++) {
+            if (associacions[i].equals(nomAssociacio)) {
+                return false; // Ja existeix
+            }
         }
+        // Comprova si el membre ja està associat a tres associacions
+        if (nombreAssociacions >= 3) {
+            return false; // Límits superats
+        }
+        // Afegeix l'associació i incrementa el comptador
         this.associacions[nombreAssociacions++] = nomAssociacio;
         return true;
     }
+
 
     /**
      * @brief Obté el tipus específic del membre.

@@ -9,12 +9,14 @@ public abstract class Accions {
     private String codigo; // Código único de la acción
     private String titulo; // Título descriptivo
     private Membre responsable; // Alias del responsable de la acción
+    private String nombreAssociacio;
 
     // Constructor
-    public Accions(Associacio nombreAsociacion, String titulo, Membre responsable) {
-        this.codigo = generarCodigo(nombreAsociacion.getNom());
+    public Accions(Associacio associacio, String titulo, Membre responsable) {
+        this.codigo = generarCodigo(associacio.getNom());
         this.titulo = titulo;
         this.responsable = responsable;
+        nombreAssociacio = associacio.getNom();
         // Hay que controlar que el responsable sea miembro de alguna de las
         // associaciones que organiza
     }
@@ -41,12 +43,20 @@ public abstract class Accions {
         return codigo;
     }
 
+    public void setCodigo(String codigo){
+        this.codigo = codigo;
+    }
+
     public String getCodigo() {
         return codigo;
     }
 
     public String getTitulo() {
         return titulo;
+    }
+
+    public String getAssociacio(){
+        return nombreAssociacio;
     }
 
     public Membre getResponsable() {
@@ -57,6 +67,10 @@ public abstract class Accions {
     public String toString() {
         return "Codigo: " + codigo + ", Titulo: " + titulo + ", Responsable: " + responsable;
     }
+
+    //abstract
+
+    public abstract String obtenirTipus();
 
     public abstract Accions copia();
     

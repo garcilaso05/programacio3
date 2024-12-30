@@ -49,6 +49,25 @@ public class LlistaMembres {
         return llista[posicio];
     }
 
+    /**
+     * Busca un membre por su alias en la lista.
+     * 
+     * @param alias Alias del membre a buscar.
+     * @return El membre correspondiente si se encuentra, null en caso contrario.
+     */
+    public Membre consultarPorAlias(String alias) {
+        if (alias == null || alias.isEmpty()) {
+            throw new IllegalArgumentException("El alias no puede ser null o vacío.");
+        }
+
+        for (int i = 0; i < count; i++) {
+            if (llista[i].getAlias().equals(alias)) {
+                return llista[i];
+            }
+        }
+        return null; // No encontrado
+    }
+
     // Obtener el tamaño actual de la lista
     public int mida() {
         return count;

@@ -20,8 +20,16 @@ public class Demostracio extends Accions {
         this.costMaterials = costMaterials;
     }
 
+    public Data getDataDisseny(){
+        return dataDisseny;
+    }
+    
     public boolean isActiva() {
         return activa;
+    }
+
+    public int getVegades(){
+        return vegades;
     }
 
     public double getcostMaterials() {
@@ -33,6 +41,11 @@ public class Demostracio extends Accions {
     public String toString() {
         return super.toString() + ", Fecha Diseño: " + dataDisseny + ", Activa: " + activa + ", Veces Ofrecida: "
                 + vegades + ", Costo Materiales: " + costMaterials;
+    }
+
+
+    public String obtenirTipus(){
+        return "Demostracio";
     }
 
     @Override

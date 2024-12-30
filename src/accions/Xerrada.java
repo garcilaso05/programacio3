@@ -33,6 +33,12 @@ public class Xerrada extends Accions {
     public int getAsistentes() {
         return asistentes;
     }
+    public int[] getValoraciones(){
+        return valoraciones;
+    }
+    public int getNumValoraciones(){
+        return numValoraciones;
+    }
 
     public void agregarValoracion(int valoracion) {
         if (valoracion < 0 || valoracion > 10) {
@@ -61,7 +67,7 @@ public class Xerrada extends Accions {
         String resultado = "";
         for (int i = 0; i < ponente.length; i++) {
             if (ponente[i] != null) {
-                resultado += ponente[i].getAlias() + (i < ponente.length - 1 && ponente[i + 1] != null ? ", " : "");
+                resultado += ponente[i].getAlias() + (i < ponente.length - 1 && ponente[i + 1] != null ? "," : "");
             }
         }
         return resultado.isEmpty() ? "Ninguno" : resultado;
@@ -72,6 +78,12 @@ public class Xerrada extends Accions {
         return super.toString() + ", Fecha: " + fecha + ", ponente: " + obtenerPonente() +
                 ", Asistentes: " + asistentes + ", Valoración Media: " + calcularValoracionMedia();
     }
+    //abstract
+
+    public String obtenirTipus(){
+        return "Xerrada";
+    }
+
 
     @Override
 public Xerrada copia() {
