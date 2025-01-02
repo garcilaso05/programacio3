@@ -1,20 +1,18 @@
-package main;
-
-import java.util.HashSet;
+package consola;
 import java.util.Scanner;
-import java.util.Set;
 
-import accions.Accions;
-import accions.Demostracio;
-import accions.LlistaAccions;
-import accions.Xerrada;
-import associacions.Associacio;
-import associacions.LlistaAssociacions;
-import membres.LlistaMembres;
-import membres.Membre;
-import membres.Professor;
-import membres.Alumne;
-import membres.Data;
+import dades.accions.Accions;
+import dades.accions.Demostracio;
+import dades.accions.LlistaAccions;
+import dades.accions.Xerrada;
+import dades.associacions.Associacio;
+import dades.associacions.LlistaAssociacions;
+import dades.membres.Alumne;
+import dades.membres.Data;
+import dades.membres.LlistaMembres;
+import dades.membres.Membre;
+import dades.membres.Professor;
+import excepcions.EntradaExcepcion;
 
 public class MenuConsola {
     
@@ -36,28 +34,31 @@ public class MenuConsola {
         } else {
             Associacio associacio = llistaAssociacions.consultar(numero);
             System.out.println("1. Professors 2. Alumnes 3. Ambdós");
-            int opcion = Integer.parseInt(op.nextLine());
+            int opcion = EntradaExcepcion.verificarEntradaInt(op);
         
             switch (opcion) {
                 case 1:
+                    System.out.println("=== Professors registrats ===");
                     for (int i = 0; i < associacio.getLlistaMembre().mida(); i++) {
                         if (associacio.getLlistaMembre().consultar(i).obtenirTipus().equals("Professor")) {
-                            System.out.println("Professor: " + associacio.getLlistaMembre().consultar(i).getAlias());
+                            System.out.println(associacio.getLlistaMembre().consultar(i).getAlias());
                         }
                     }
                     break;
         
                 case 2:
+                    System.out.println("=== Alumnes registrats ===");
                     for (int i = 0; i < associacio.getLlistaMembre().mida(); i++) {
                         if (associacio.getLlistaMembre().consultar(i).obtenirTipus().equals("Alumne")) {
-                            System.out.println("Alumne: " + associacio.getLlistaMembre().consultar(i).getAlias());
+                            System.out.println(associacio.getLlistaMembre().consultar(i).getAlias());
                         }
                     }
                     break;
         
                 case 3:
+                    System.out.println("=== Tots els Membres registrats ===");
                     for (int i = 0; i < associacio.getLlistaMembre().mida(); i++) {
-                        System.out.println("Membre: " + associacio.getLlistaMembre().consultar(i).getAlias());
+                        System.out.println(associacio.getLlistaMembre().consultar(i).getAlias());
                     }
                     break;
         
@@ -67,19 +68,20 @@ public class MenuConsola {
         }
     }
 
-    public void mostrarMembresActius(LlistaAssociacions llistaAssociacions, Scanner op) {
+    public void mostrarMembresActius(LlistaAssociacions llistaAssociacions, LlistaMembres llistaMembres, Scanner op) {
         System.out.println("Seleccioneu el tipus de membre a mostrar");
-        System.out.println("1. Professors 2. Alumnes 3. Ambdós:");
-        int opcion = Integer.parseInt(op.nextLine());
+        System.out.println("1. Professors 2. Alumnes 3. Ambdós (-1 para cancelar):");
+        int opcion = EntradaExcepcion.verificarEntradaInt(op);
+
         
-        Set<Membre> membresActius = new HashSet<>(); // To avoid duplicates
+        LlistaMembres membresActius = new LlistaMembres(llistaAssociacions.getElementos()*llistaMembres.mida());
 
         for (int i = 0; i < llistaAssociacions.getElementos(); i++) {
             Associacio associacio = llistaAssociacions.consultar(i);
             for (int j = 0; j < associacio.getLlistaMembre().mida(); j++) {
                 Membre membre = associacio.getLlistaMembre().consultar(j);
-                if (membre.getDataBaixa() == null) { // Only active members
-                    membresActius.add(membre);
+                if (membre.getDataBaixa() == null) { 
+                    membresActius.afegir(membre);;
                 }
             }
         }
@@ -87,21 +89,27 @@ public class MenuConsola {
         switch (opcion) {
             case 1:
                 System.out.println("=== Professors Actius ===");
-                membresActius.stream()
-                    .filter(m -> m.obtenirTipus().equals("Professor"))
-                    .forEach(m -> System.out.println(m.getAlias()));
+                for (int i = 0; i < membresActius.mida(); i++) {
+                    if (membresActius.consultar(i).obtenirTipus().equals("Professor")) {
+                        System.out.println(membresActius.consultar(i).getAlias());
+                    }
+                }
                 break;
 
             case 2:
                 System.out.println("=== Alumnes Actius ===");
-                membresActius.stream()
-                    .filter(m -> m.obtenirTipus().equals("Alumne"))
-                    .forEach(m -> System.out.println(m.getAlias()));
+                for (int i = 0; i < membresActius.mida(); i++) {
+                    if (membresActius.consultar(i).obtenirTipus().equals("Alumne")) {
+                        System.out.println(membresActius.consultar(i).getAlias());
+                    }
+                }
                 break;
 
             case 3:
                 System.out.println("=== Tots els Membres Actius ===");
-                membresActius.forEach(m -> System.out.println(m.getAlias()));
+                for (int i = 0; i < membresActius.mida(); i++) {
+                    System.out.println(membresActius.consultar(i).getAlias());
+                }
                 break;
 
             default:
@@ -110,35 +118,33 @@ public class MenuConsola {
     }
 
     public void mostrarAccionsAssociacio(LlistaAssociacions llistaAssociacions, LlistaAccions llistaAccions, Scanner op) {
-        System.out.println("Introdueix el nom de l'associació:");
-        String nomAssociacio = op.nextLine().trim(); // Normalize input
+        System.out.println("Introdueix el nom de l\'associació:");
+        String nomAssociacio = op.nextLine().trim(); 
 
-        // Search for the association
         int index = llistaAssociacions.buscarNumeroAssociacio(nomAssociacio);
 
         if (index == -1) {
             System.out.println("Associació no trobada. Revisa el nom introduït.");
-            return;
-        }
+        } else {
+            Associacio associacio = llistaAssociacions.consultar(index);
 
-        // Get the association object
-        Associacio associacio = llistaAssociacions.consultar(index);
-
-        // Find actions related to this association
-        System.out.println("\n=== Llista d’Accions per l’Associació " + associacio.getNom() + " ===");
-        boolean found = false;
-
-        for (int i = 0; i < llistaAccions.mida(); i++) {
-            Accions accio = llistaAccions.consultar(i);
-            if (associacio.getNom().equals(accio.getAssociacio())) { // Assume this method checks if the action belongs to the association
-                System.out.println(utils.convertirAccionLinea(accio));
-                found = true;
+            System.out.println("\n=== Llista d’Accions per l’Associació " + associacio.getNom() + " ===");
+            boolean found = false;
+    
+            for (int i = 0; i < llistaAccions.mida(); i++) {
+                Accions accio = llistaAccions.consultar(i);
+                if (associacio.getNom().equals(accio.getAssociacio())) { 
+                    System.out.println(utils.convertirAccionLinea(accio));
+                    found = true;
+                }
+            }
+    
+            if (!found) {
+                System.out.println("No hi ha accions registrades per aquesta associació.");
             }
         }
 
-        if (!found) {
-            System.out.println("No hi ha accions registrades per aquesta associació.");
-        }
+       
     }
 
     public void afegirNovaAssociacio(LlistaAssociacions llistaAssociacions, LlistaMembres llistaMembres, Scanner op) {
@@ -232,36 +238,39 @@ public class MenuConsola {
 
         // Solicitar fecha
         System.out.print("Data de la xerrada (format DD/MM/YYYY): ");
-        String data = op.nextLine().trim();
-        String[] partsData = data.split("/");
-        if (partsData.length != 3) {
-            System.out.println("Format de data incorrecte.");
-            return;
-        }
-        Data dataXerrada = new Data(Integer.parseInt(partsData[0]), Integer.parseInt(partsData[1]), Integer.parseInt(partsData[2]));
+        String data  = EntradaExcepcion.verificarEntradaData(op);
+        if (!data.equals("-1")){
+            String[] partsData = data.split("/");
+            if (partsData.length != 3) {
+                System.out.println("Format de data incorrecte.");
 
-        // Solicitar ponents
-        System.out.print("Alias dels ponents (separats per comes, màxim 3): ");
-        String[] aliasPonents = op.nextLine().split(",");
-        Membre[] ponents = new Membre[3];
-        for (int i = 0; i < aliasPonents.length && i < 3; i++) {
-            Membre ponent = llistaMembres.consultarPorAlias(aliasPonents[i].trim());
-            if (ponent != null) {
-                ponents[i] = ponent;
+            } else {
+                Data dataXerrada = new Data(Integer.parseInt(partsData[0]), Integer.parseInt(partsData[1]), Integer.parseInt(partsData[2]));
+
+                // Solicitar ponents
+                System.out.print("Alias dels ponents (separats per comes, màxim 3): ");
+                String[] aliasPonents = op.nextLine().split(",");
+                Membre[] ponents = new Membre[3];
+                for (int i = 0; i < aliasPonents.length && i < 3; i++) {
+                    Membre ponent = llistaMembres.consultarPorAlias(aliasPonents[i].trim());
+                    if (ponent != null) {
+                        ponents[i] = ponent;
+                    }
+                }
+
+                // Solicitar número de assistents
+                System.out.print("Nombre d'assistents esperats: ");
+                int assistents = EntradaExcepcion.verificarEntradaInt(op);
+
+                // Crear y añadir la xerrada
+                Xerrada novaXerrada = new Xerrada(associacio, titol, responsable, dataXerrada, ponents, assistents);
+                try {
+                    llistaAccions.afegir(novaXerrada);
+                    System.out.println("Xerrada afegida amb èxit!");
+                } catch (IllegalStateException e) {
+                    System.out.println("No es pot afegir la xerrada. La llista està plena.");
+                }
             }
-        }
-
-        // Solicitar número de assistents
-        System.out.print("Nombre d'assistents esperats: ");
-        int assistents = Integer.parseInt(op.nextLine().trim());
-
-        // Crear y añadir la xerrada
-        Xerrada novaXerrada = new Xerrada(associacio, titol, responsable, dataXerrada, ponents, assistents);
-        try {
-            llistaAccions.afegir(novaXerrada);
-            System.out.println("Xerrada afegida amb èxit!");
-        } catch (IllegalStateException e) {
-            System.out.println("No es pot afegir la xerrada. La llista està plena.");
         }
     }
 
@@ -297,7 +306,7 @@ public class MenuConsola {
     
         // Solicitar el número mínimo de asistentes
         System.out.print("Indica el número mínim d'assistents: ");
-        int minimAssistents = Integer.parseInt(op.nextLine().trim());
+        int minimAssistents = EntradaExcepcion.verificarEntradaInt(op);
     
         boolean found = false; // Bandera para verificar si se encuentran resultados
     
@@ -361,57 +370,54 @@ public class MenuConsola {
     
         // Solicitar la fecha límite
         System.out.print("Introdueix la data límit (format DD/MM/YYYY): ");
-        String dataInput = op.nextLine().trim();
+        String dataInput = EntradaExcepcion.verificarEntradaData(op);
         String[] parts = dataInput.split("/");
-    
-        if (parts.length != 3) {
-            System.out.println("Format de data incorrecte. Torna-ho a intentar.");
-            return;
-        }
-    
-        Data dataLimit;
-        try {
-            int dia = Integer.parseInt(parts[0]);
-            int mes = Integer.parseInt(parts[1]);
-            int any = Integer.parseInt(parts[2]);
-            dataLimit = new Data(dia, mes, any);
-        } catch (NumberFormatException e) {
-            System.out.println("Format de data incorrecte. Torna-ho a intentar.");
-            return;
-        }
-    
-        // Recorrer y eliminar las demostraciones que cumplen los criterios
-        int eliminades = 0;
-    
-        for (int i = 0; i < llistaAccions.mida(); i++) {
-            Accions accio = llistaAccions.consultar(i);
-    
-            if (accio instanceof Demostracio) {
-                Demostracio demostracio = (Demostracio) accio;
-    
-                // Verificar las condiciones: no activa y diseñada antes de la fecha límite
-                if (!demostracio.isActiva() && demostracio.getDataDisseny().esAnterior(dataLimit)) {
-                    System.out.println("Eliminant demostració: " + utils.convertirAccionLinea(demostracio));
-                    llistaAccions.eliminar(i);
-                    i--; // Ajustar el índice después de eliminar
-                    eliminades++;
+        if(!dataInput.equals("-1")){
+            if (parts.length != 3) {
+                System.out.println("Format de data incorrecte. Torna-ho a intentar.");
+            } else {
+                Data dataLimit;
+                int dia = Integer.parseInt(parts[0]);
+                int mes = Integer.parseInt(parts[1]);
+                int any = Integer.parseInt(parts[2]);
+                dataLimit = new Data(dia, mes, any);
+            
+                int eliminades = 0;
+            
+                for (int i = 0; i < llistaAccions.mida(); i++) {
+                    Accions accio = llistaAccions.consultar(i);
+            
+                    if (accio instanceof Demostracio) {
+                        Demostracio demostracio = (Demostracio) accio;
+            
+                        // Verificar las condiciones: no activa y diseñada antes de la fecha límite
+                        if (!demostracio.isActiva() && demostracio.getDataDisseny().esAnterior(dataLimit)) {
+                            System.out.println("Eliminant demostració: " + utils.convertirAccionLinea(demostracio));
+                            llistaAccions.eliminar(i);
+                            i--; // Ajustar el índice después de eliminar
+                            eliminades++;
+                        }
+                    }
+                }
+            
+                // Mostrar resultados
+                if (eliminades == 0) {
+                    System.out.println("No s'han trobat demostracions que compleixin els criteris.");
+                } else {
+                    System.out.println("Demostracions eliminades: " + eliminades);
                 }
             }
+        
+           
         }
-    
-        // Mostrar resultados
-        if (eliminades == 0) {
-            System.out.println("No s'han trobat demostracions que compleixin els criteris.");
-        } else {
-            System.out.println("Demostracions eliminades: " + eliminades);
-        }
+       
     }
 
     public void mostraLlistaAccions(LlistaAccions llistaAccions, Scanner op){
         System.out.println("\n=== Mostrar Llista d'Accions ===");
 
     System.out.println("Escull el filtre: 1. Xerrada 2. Demostracio 3. Ambdós");
-    int opcion = Integer.parseInt(op.nextLine());
+    int opcion = EntradaExcepcion.verificarEntradaInt(op);
 
     switch (opcion) {
         case 1:
@@ -444,19 +450,19 @@ public class MenuConsola {
         System.out.println("\nIntrodueix els rangs de cerca...");
         int dia_i, mes_i, any_i, dia_f, mes_f, any_f;
         System.out.println("\nIntrodueixi el dia d'inici: ");
-        dia_i = Integer.parseInt(op.nextLine());
+        dia_i = EntradaExcepcion.verificarEntradaInt(op);
         System.out.println("\nIntrodueixi el mes d'inici: ");
-        mes_i = Integer.parseInt(op.nextLine());
+        mes_i = EntradaExcepcion.verificarEntradaInt(op);
         System.out.println("\nIntrodueixi l'any d'inici: ");
-        any_i = Integer.parseInt(op.nextLine());
+        any_i = EntradaExcepcion.verificarEntradaInt(op);
         Data inici = new Data(dia_i, mes_i, any_i);
 
         System.out.println("\nIntrodueixi el dia de final: ");
-        dia_f = Integer.parseInt(op.nextLine());
+        dia_f = EntradaExcepcion.verificarEntradaInt(op);
         System.out.println("\nIntrodueixi el mes de final: ");
-        mes_f = Integer.parseInt(op.nextLine());
+        mes_f = EntradaExcepcion.verificarEntradaInt(op);
         System.out.println("\nIntrodueixi l'any de final: ");
-        any_f = Integer.parseInt(op.nextLine());
+        any_f = EntradaExcepcion.verificarEntradaInt(op);
         Data fi = new Data(dia_f, mes_f, any_f);
 
         for (int i = 0; i < llistaAccions.mida(); i++) {
@@ -514,7 +520,7 @@ public class MenuConsola {
 
                         System.out.println("El membre no està associat a cap associació");
                         System.out.println("\nIndica primer si es 1. Alumne o 2. Professor");
-                        int opcion = Integer.parseInt(op.nextLine());
+                        int opcion = EntradaExcepcion.verificarEntradaInt(op);
                         if (opcion == 1){
                             
                             System.out.println("Alias: " + texto);
@@ -523,16 +529,16 @@ public class MenuConsola {
                             System.out.println("\nIntrodueix la data d'alta: ");
                             int dia, mes, any;
                             System.out.println("\nDia: ");
-                            dia = Integer.parseInt(op.nextLine());
+                            dia = EntradaExcepcion.verificarEntradaInt(op);
                             System.out.println("\nMes: ");
-                            mes = Integer.parseInt(op.nextLine());
+                            mes = EntradaExcepcion.verificarEntradaInt(op);
                             System.out.println("\nAny: ");
-                            any = Integer.parseInt(op.nextLine());
+                            any = EntradaExcepcion.verificarEntradaInt(op);
                             Data alta = new Data(dia, mes, any);
                             System.out.println("\nEnsenyament: ");
                             String estudis = op.nextLine().trim();
                             System.out.println("\nAnys a l'ETSE: ");
-                            int anys = Integer.parseInt(op.nextLine().trim());
+                            int anys = EntradaExcepcion.verificarEntradaInt(op);
                             Alumne nouAlumne = new Alumne(texto, email, alta, estudis, anys);
                             llistaMembres.afegir(nouAlumne);
                             llistaAssociacions.consultar(numero).afegirMembre(nouAlumne);
@@ -545,16 +551,16 @@ public class MenuConsola {
                             System.out.println("\nIntrodueix la data d'alta: ");
                             int dia, mes, any;
                             System.out.println("\nDia: ");
-                            dia = Integer.parseInt(op.nextLine());
+                            dia = EntradaExcepcion.verificarEntradaInt(op);
                             System.out.println("\nMes: ");
-                            mes = Integer.parseInt(op.nextLine());
+                            mes = EntradaExcepcion.verificarEntradaInt(op);
                             System.out.println("\nAny: ");
-                            any = Integer.parseInt(op.nextLine());
+                            any = EntradaExcepcion.verificarEntradaInt(op);
                             Data alta = new Data(dia, mes, any);
                             System.out.println("\nDepartament: ");
                             String departament = op.nextLine().trim();
                             System.out.println("\nDespatx: ");
-                            int despatx = Integer.parseInt(op.nextLine().trim());
+                            int despatx = EntradaExcepcion.verificarEntradaInt(op);
                             Professor nouProfessor = new Professor(texto, email, alta, departament, despatx);
                             llistaMembres.afegir(nouProfessor);
                             llistaAssociacions.consultar(numero).afegirMembre(nouProfessor);
@@ -605,7 +611,7 @@ public class MenuConsola {
 
                 System.out.println("El membre no existeix, crea un de nou: ");
                 System.out.println("\nIndica primer si es 1. Alumne o 2. Professor");
-                int opcion = Integer.parseInt(op.nextLine());
+                int opcion = EntradaExcepcion.verificarEntradaInt(op);
                 if (opcion == 1){
                     
                     System.out.println("Alias: " + nom);
@@ -614,16 +620,16 @@ public class MenuConsola {
                     System.out.println("\nIntrodueix la data d'alta: ");
                     int dia, mes, any;
                     System.out.println("\nDia: ");
-                    dia = Integer.parseInt(op.nextLine());
+                    dia = EntradaExcepcion.verificarEntradaInt(op);
                     System.out.println("\nMes: ");
-                    mes = Integer.parseInt(op.nextLine());
+                    mes = EntradaExcepcion.verificarEntradaInt(op);
                     System.out.println("\nAny: ");
-                    any = Integer.parseInt(op.nextLine());
+                    any = EntradaExcepcion.verificarEntradaInt(op);
                     Data alta = new Data(dia, mes, any);
                     System.out.println("\nEnsenyament: ");
                     String estudis = op.nextLine().trim();
                     System.out.println("\nAnys a l'ETSE: ");
-                    int anys = Integer.parseInt(op.nextLine().trim());
+                    int anys = EntradaExcepcion.verificarEntradaInt(op);
                     Alumne nouAlumne = new Alumne(texto, email, alta, estudis, anys);
                     llistaMembres.afegir(nouAlumne);
                     i = llistaMembres.mida();
@@ -638,16 +644,16 @@ public class MenuConsola {
                     System.out.println("\nIntrodueix la data d'alta: ");
                     int dia, mes, any;
                     System.out.println("\nDia: ");
-                    dia = Integer.parseInt(op.nextLine());
+                    dia = EntradaExcepcion.verificarEntradaInt(op);
                     System.out.println("\nMes: ");
-                    mes = Integer.parseInt(op.nextLine());
+                    mes = EntradaExcepcion.verificarEntradaInt(op);
                     System.out.println("\nAny: ");
-                    any = Integer.parseInt(op.nextLine());
+                    any = EntradaExcepcion.verificarEntradaInt(op);
                     Data alta = new Data(dia, mes, any);
                     System.out.println("\nDepartament: ");
                     String departament = op.nextLine().trim();
                     System.out.println("\nDespatx: ");
-                    int despatx = Integer.parseInt(op.nextLine().trim());
+                    int despatx = EntradaExcepcion.verificarEntradaInt(op);
                     Professor nouProfessor = new Professor(texto, email, alta, departament, despatx);
                     llistaMembres.afegir(nouProfessor);
                     i = llistaMembres.mida();
@@ -666,21 +672,21 @@ public class MenuConsola {
             System.out.println("\nIntrodueix la data de disseny: ");
             int dia, mes, any;
             System.out.println("\nDia: ");
-            dia = Integer.parseInt(op.nextLine());
+            dia = EntradaExcepcion.verificarEntradaInt(op);
             System.out.println("\nMes: ");
-            mes = Integer.parseInt(op.nextLine());
+            mes = EntradaExcepcion.verificarEntradaInt(op);
             System.out.println("\nAny: ");
-            any = Integer.parseInt(op.nextLine());
+            any = EntradaExcepcion.verificarEntradaInt(op);
             Data dataDisseny = new Data(dia, mes, any);
             boolean actiu = false;
             System.out.println("\nLa demostració està activa? 1. (si) 2. (no)");
-            if(Integer.parseInt(op.nextLine()) == 1){
+            if(EntradaExcepcion.verificarEntradaInt(op) == 1){
                 actiu = true;
             }
             System.out.println("\nVeguades que es farà: ");
-            int vegades = Integer.parseInt(op.nextLine().trim());
+            int vegades = EntradaExcepcion.verificarEntradaInt(op);
             System.out.println("\nCost de tot el material: ");
-            double costMaterials = Double.parseDouble(op.nextLine().trim());
+            double costMaterials = EntradaExcepcion.verificarEntradaDouble(op);
 
             llistaAccions.afegir(new Demostracio(llistaAssociacions.consultar(numero), titol, llistaMembres.consultar(i--), dataDisseny, actiu, vegades, costMaterials));
             System.out.println("Nova Demostracio creada!");
@@ -688,7 +694,7 @@ public class MenuConsola {
         }
     }
 
-    public void personaMesActiva(LlistaMembres llistaMembres, LlistaAssociacions llistaAssociacions, Scanner op){
+    public void personaMesActiva(LlistaMembres llistaMembres, LlistaAssociacions llistaAssociacions){
         System.out.println("\n=== Persona mes Activa ===");
         Data llistaDates[] = new Data[llistaMembres.mida()];
         int actiu[] = new int[llistaMembres.mida()];
@@ -756,7 +762,7 @@ public class MenuConsola {
             if (llistaAccions.consultar(i).obtenirTipus().equals("Xerrada")){
                 if (llistaAccions.consultar(i).getTitulo().equals(nom)){
                     System.out.println("Introdueix la valoració de la xarrada: ");
-                    int valoracio = Integer.parseInt(op.nextLine().trim());
+                    int valoracio = EntradaExcepcion.verificarEntradaInt(op);
                     ((Xerrada)llistaAccions.consultar(i)).agregarValoracion(valoracio);
                     System.out.println("Valoració afegida correctament!");
                 }

@@ -1,4 +1,4 @@
-package membres;
+package dades.membres;
 /**
  * Classe Alumne que representa un alumne membre d'una associació.
  * Hereta de la classe Membre.

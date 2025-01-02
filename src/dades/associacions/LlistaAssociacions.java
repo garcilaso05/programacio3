@@ -1,4 +1,4 @@
-package associacions;
+package dades.associacions;
 
 import java.io.Serializable;
 

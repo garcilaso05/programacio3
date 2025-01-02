@@ -1,8 +1,8 @@
 # Configuración de variables
 SRC_DIR = src
 BIN_DIR = bin
-MAIN_CLASS = main.UsaAssociacions
-TEST_CLASS = test.UsaAssociacionsTest
+MAIN_CLASS = consola.AppConsola
+TEST_CLASS = tests.UsaAssociacionsTest
 JAVAC = javac
 JAVA = java
 RM = rm -rf

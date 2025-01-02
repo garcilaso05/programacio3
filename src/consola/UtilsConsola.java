@@ -1,4 +1,4 @@
-package main;
+package consola;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,17 +7,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import accions.Accions;
-import accions.Demostracio;
-import accions.LlistaAccions;
-import accions.Xerrada;
-import associacions.Associacio;
-import associacions.LlistaAssociacions;
-import membres.Alumne;
-import membres.Data;
-import membres.LlistaMembres;
-import membres.Membre;
-import membres.Professor;
+import dades.accions.Accions;
+import dades.accions.Demostracio;
+import dades.accions.LlistaAccions;
+import dades.accions.Xerrada;
+import dades.associacions.Associacio;
+import dades.associacions.LlistaAssociacions;
+import dades.membres.Alumne;
+import dades.membres.Data;
+import dades.membres.LlistaMembres;
+import dades.membres.Membre;
+import dades.membres.Professor;
 
 public class UtilsConsola {
 
@@ -71,11 +71,9 @@ public class UtilsConsola {
             
             String[] parts = line.split(";");
             if (parts.length > 0) {
-                // Extraer información de la asociación
                 String nom = parts[0];
                 String correuElectronic = parts[1];
                 String[] titulacions = parts[2].split(",");
-                //String[] aliases = parts[3].split(",");
                 String presidentAlias = parts[3];
                 String secretariAlias = parts[4];
                 String tresorerAlias = parts[5];
@@ -232,7 +230,6 @@ public class UtilsConsola {
                         for (int j = 0; j < llistaMembres.mida(); j++) {
                             if (llistaMembres.consultar(j).getAlias().equals(ponentesAlias[i])) {
                                 ponentes[i] = llistaMembres.consultar(j);
-                                break;
                             }
                         }
                     }

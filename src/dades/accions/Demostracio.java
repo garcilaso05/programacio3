@@ -1,8 +1,8 @@
-package accions;
+package dades.accions;
 
-import associacions.Associacio;
-import membres.Data;
-import membres.Membre;
+import dades.associacions.Associacio;
+import dades.membres.Data;
+import dades.membres.Membre;
 
 public class Demostracio extends Accions {
 

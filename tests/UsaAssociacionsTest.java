@@ -1,11 +1,10 @@
-import associacions.*;
-import membres.Alumne;
-import membres.Professor;
-import membres.Membre;
-import membres.Data;
-import membres.LlistaMembres;
-
-import accions.*;
+import dades.accions.*;
+import dades.associacions.*;
+import dades.membres.Alumne;
+import dades.membres.Data;
+import dades.membres.LlistaMembres;
+import dades.membres.Membre;
+import dades.membres.Professor;
 
 /**
  * Classe principal per provar el funcionament de totes les classes del

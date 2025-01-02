@@ -1,26 +1,25 @@
-package main;
+package consola;
 
-import associacions.*;
-import membres.LlistaMembres;
+import dades.accions.*;
+import dades.associacions.*;
+import dades.membres.LlistaMembres;
+import excepcions.EntradaExcepcion;
 
 import java.io.IOException;
 import java.util.Scanner;
-import accions.*;
 /**
  * Classe principal per provar el funcionament de totes les classes del
  * projecte.
  */
-public class UsaAssociacions {
+public class AppConsola {
     public static void main(String[] args) {
         
         UtilsConsola consola = new UtilsConsola();
         MenuConsola menu = new MenuConsola();
 
-        
         final String FILE_ASSOCIACIONS = "data/LlistaAssociacions.dat";
         final String FILE_MEMBRES = "data/LlistaMembres.txt";
         final String FILE_ACCIONS = "data/LlistaAccions.txt";
-
     
         LlistaAssociacions llistaAssociacions = new LlistaAssociacions(10);
         LlistaAccions llistaAccions = new LlistaAccions(100);   // Capacidad inicial
@@ -43,8 +42,8 @@ public class UsaAssociacions {
 
         do {
             System.out.println("\nMenú Principal");
-            System.out.println("1. Mostrar dades de la llista d’associacions");
-            System.out.println("2. Mostrar dades de membres d’una associació");
+            System.out.println("1. Mostrar dades de la llista d'associacions");
+            System.out.println("2. Mostrar dades de membres d'una associació");
             System.out.println("3. Mostra membres Actius");
             System.out.println("4. Mostra llista d'accions filtrant per tipus d'acció");
             System.out.println("5. Mostrar Accions de UNA Associacio");
@@ -59,11 +58,11 @@ public class UsaAssociacions {
             System.out.println("14. Valorar xerrada");
             System.out.println("15. Mostrar Xerrada millor valoradas");
             System.out.println("16. Dades de les xarrades fetes de un ponent");
-            System.out.println("17. Donar de baixa les demostracions no actives dissenyades abans d’una certa data");
+            System.out.println("17. Donar de baixa les demostracions no actives dissenyades abans d'una certa data");
             System.out.println("18. Sortir");
             System.out.print("Escull una opció: ");
 
-            opcion = Integer.parseInt(op.nextLine());
+            opcion = EntradaExcepcion.verificarEntradaInt(op);
 
             switch (opcion) {
                 case 1:
@@ -75,12 +74,12 @@ public class UsaAssociacions {
                     break;
             
                 case 3:
-                    menu.mostrarMembresActius(llistaAssociacions, op);
+                    menu.mostrarMembresActius(llistaAssociacions, llistaMembres, op);
                     break;
             
                 case 4:
                     menu.mostraLlistaAccions(llistaAccions, op);
-                                        break;
+                    break;
 
                 case 5:
                     menu.mostrarAccionsAssociacio(llistaAssociacions, llistaAccions, op);
@@ -111,7 +110,7 @@ public class UsaAssociacions {
                     break;
             
                 case 12:
-                    menu.personaMesActiva(llistaMembres, llistaAssociacions, op);
+                    menu.personaMesActiva(llistaMembres, llistaAssociacions);
                     break;
             
                 case 13:
@@ -135,10 +134,6 @@ public class UsaAssociacions {
                     break;
         
                 case 18:
-                    exit = true;
-                    break;
-            
-                default:
                     exit = true;
                     break;
             }

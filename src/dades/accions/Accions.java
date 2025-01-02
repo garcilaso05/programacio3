@@ -1,7 +1,7 @@
-package accions;
+package dades.accions;
 
-import membres.Membre;
-import associacions.Associacio;
+import dades.associacions.Associacio;
+import dades.membres.Membre;
 
 public abstract class Accions {
 

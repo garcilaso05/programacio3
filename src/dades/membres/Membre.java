@@ -1,6 +1,6 @@
 
 
-package membres;
+package dades.membres;
 /**
  * Classe abstracta que representa un membre d'una associació.
  * Conté atributs i funcionalitats comunes per a tots els membres.

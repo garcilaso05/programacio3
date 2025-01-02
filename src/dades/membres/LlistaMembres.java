@@ -1,4 +1,4 @@
-package membres;
+package dades.membres;
 
 public class LlistaMembres {
     private Membre[] llista;

@@ -1,8 +1,8 @@
-package associacions;
+package dades.associacions;
 
-import membres.Membre;
-import membres.Alumne;
-import membres.LlistaMembres;
+import dades.membres.Alumne;
+import dades.membres.LlistaMembres;
+import dades.membres.Membre;
 
 /**
  * Classe que representa una Associació.

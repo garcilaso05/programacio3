@@ -1,9 +1,9 @@
-package accions;
+package dades.accions;
 
-import associacions.Associacio;
-import membres.Membre;
-import membres.Data;
-import membres.LlistaMembres;
+import dades.associacions.Associacio;
+import dades.membres.Data;
+import dades.membres.LlistaMembres;
+import dades.membres.Membre;
 
 public class Xerrada extends Accions {
 
@@ -68,7 +68,7 @@ public class Xerrada extends Accions {
         String resultado = "";
         for (int i = 0; i < ponente.mida(); i++) {
             if (ponente.consultar(i) != null) {
-                resultado += ponente.consultar(i).getAlias() + (i < ponente.mida() - 1 && ponente.consultar(i+1) != null ? ", " : "");
+                resultado += ponente.consultar(i).getAlias() + (i < ponente.mida() - 1 && ponente.consultar(i+1) != null ? "," : "");
             }
         }
         return resultado.isEmpty() ? "Ninguno" : resultado;

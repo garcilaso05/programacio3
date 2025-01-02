@@ -1,4 +1,4 @@
-package accions;
+package dades.accions;
 
 public class LlistaAccions {
     private Accions[] llista;

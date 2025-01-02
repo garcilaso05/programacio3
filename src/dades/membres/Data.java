@@ -1,4 +1,4 @@
-package membres;
+package dades.membres;
 /*
  * Classe reutilitzada (amb modificacions) de la tercera sessió del laboratori 3
  * S'ha afegit més controls y s'ha practicat l'és de excepcións
