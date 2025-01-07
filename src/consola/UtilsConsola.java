@@ -235,7 +235,7 @@ public class UtilsConsola {
                     }
                     int asistentes = Integer.parseInt(parts[7]);
 
-                    int[] valoraciones = new int[0]; // Par défaut à un tableau vide
+                    int[] valoraciones = new int[0];
                     if (parts.length > 8 && !parts[8].isEmpty()) {
                         String[] valoracionesStr = parts[8].split(",");
                         valoraciones = new int[valoracionesStr.length];

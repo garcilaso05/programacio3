@@ -262,8 +262,13 @@ public class MenuConsola {
                 System.out.print("Nombre d'assistents esperats: ");
                 int assistents = EntradaExcepcion.verificarEntradaInt(op);
 
+                System.out.print("Valoració inicial");
+                int valoracio = EntradaExcepcion.verificarEntradaInt(op);
+
                 // Crear y añadir la xerrada
                 Xerrada novaXerrada = new Xerrada(associacio, titol, responsable, dataXerrada, ponents, assistents);
+                novaXerrada.agregarValoracion(valoracio);
+
                 try {
                     llistaAccions.afegir(novaXerrada);
                     System.out.println("Xerrada afegida amb èxit!");

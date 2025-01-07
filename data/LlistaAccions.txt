@@ -9,3 +9,7 @@ Demostracio;PAT107;Juga a fer castells;Pataquers;Joan Pérez;07/03/2023;true;7;1
 Demostracio;PAT108;Fisiques;Pataquers;Joan Pérez;21/09/2024;false;3;500.25
 Demostracio;PAT109;Cultura!;Quers;Gemma Salas;12/04/2025;true;8;2000.0
 Xerrada;QUE110;Com coordinar castells?;Quers;Sergi Torres;12/01/2022;Paula Vidal;40;5
+Xerrada;COD111;Robotech;CodeURV;Cristina Pérez;15/01/2025;Arnau Mora,Lluís Fernández;100;8,9,7
+Xerrada;COD112;Hack;CodeURV;Ramon Bosch;17/01/2025;Gemma Salas;60;9,4
+Demostracio;COD113;LaURV;CodeURV;Helena Martí;25/12/2024;true;8;600.0
+Demostracio;COD114;Computadors;CodeURV;Albert Ferrer;30/12/2024;false;1;100.0

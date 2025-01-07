@@ -48,8 +48,8 @@ $(DATA_DIR)/LlistaAssociacions.dat:
 
 # Ejecución del programa en terminal (con timeout)
 run_terminal: build init_files
-	@echo "Ejecutando terminal durante $(TIMEOUT) segundos..."
-	timeout $(TIMEOUT) $(JAVA) -cp $(BIN_DIR) $(MAIN_CLASS)
+	@echo "Ejecutando terminal"
+	$(JAVA) -cp $(BIN_DIR) $(MAIN_CLASS)
 
 # Ejecución del programa gráfico
 run_graphic: build init_files
