@@ -1,2 +1,0 @@
-Xerrada;PAT100;Festa de l'esport;Quers;Marta Soler;17/01/2018;Marta Soler,Jordi Font,Núria Roca;210;6,7,8
-Demostracio;PAT105;Com es fan castells?;Pataquers;Joan Pérez;20/11/2021;false;5;1500.3
